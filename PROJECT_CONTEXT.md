@@ -231,16 +231,20 @@ These rules are important:
 - GitHub, LinkedIn, X and email links.
 - Production build and lint passing.
 - Real GitHub contribution activity section (`anaskhan-pd`).
-- Custom 53-week interactive contribution heatmap with month and weekday labels.
-- Theme-aware contribution levels (`--contrib-level-0` to `--contrib-level-4`) supporting dark and light themes.
-- Client fetching with `sessionStorage` 2-hour TTL cache and verified static snapshot fallback (`src/data/githubContributionsSnapshot.ts`).
-- Hover and keyboard focus tooltips displaying exact contribution counts and dates.
-- Mobile horizontal scroll with auto-scroll to the latest activity.
+- Final visual refinement integrating the GitHub activity section seamlessly into the page:
+  - Removed the outer card border and secondary background enclosure so the contribution grid sits directly on the page canvas rather than looking like an isolated dashboard widget.
+  - Removed the pulsing green status beacon; replaced with a clean typographic link (`@anaskhan-pd ↗`) aligned with the section metadata.
+  - Preserved the full editorial header: section index (`02 / Activity · GitHub`), confident contribution total (`1,304 contributions in the last year`), active days, longest streak, and date range.
+  - Refined grid spacing and cell proportions: crisp architectural `rounded-[2px]` squares with clean 3px gaps.
+  - Mathematically locked weekday labels (`Mon`, `Wed`, `Fri`) using matching 7-row CSS grid matching the calendar row heights and row gaps with zero vertical drift across all screen sizes.
+  - Synchronized month labels on matching 53-column grid offset to match weekday column width and locked to the week of day 1.
+  - Restrained theme-aware palette: refined mineral jade & luminous mint on dark charcoal (`#0b0b0c`), and botanical spruce & stone on light linen (`#f5f5f2`), with tactile empty cell borders.
+  - Maintained full data pipeline: client-side fetch, 2-hour `sessionStorage` caching, verified static snapshot fallback (`src/data/githubContributionsSnapshot.ts`), glassmorphism tooltips, keyboard navigation, and mobile horizontal auto-scrolling to latest activity.
 - Zero external component dependencies or backend infrastructure.
 
 ### Current status
 - Introduction section implemented and refined.
-- GitHub activity section implemented and verified.
+- GitHub activity section visually refined and integrated directly into page.
 - Project showcase and subsequent sections remain planned.
 
 ### Known limitations and operational details

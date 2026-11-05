@@ -18,12 +18,13 @@
 
   --border: #29292d;
 
-  /* Contribution heatmap levels (dark mode default) */
-  --contrib-level-0: #161b22;
-  --contrib-level-1: #0e4429;
-  --contrib-level-2: #006d32;
-  --contrib-level-3: #26a641;
-  --contrib-level-4: #39d353;
+  /* Contribution heatmap levels (dark mode default - refined mineral/sage palette) */
+  --contrib-level-0: #151518;
+  --contrib-level-0-border: #222226;
+  --contrib-level-1: #133826;
+  --contrib-level-2: #1b5e3c;
+  --contrib-level-3: #2a8f5c;
+  --contrib-level-4: #4ade80;
 
   font-family: "Geist Variable", "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-synthesis: none;
@@ -45,12 +46,13 @@
 
   --border: #deded8;
 
-  /* Contribution heatmap levels (light mode) */
-  --contrib-level-0: #ebedf0;
-  --contrib-level-1: #9be9a8;
-  --contrib-level-2: #40c463;
-  --contrib-level-3: #30a14e;
-  --contrib-level-4: #216e39;
+  /* Contribution heatmap levels (light mode - refined botanical/stone palette) */
+  --contrib-level-0: #eae9e4;
+  --contrib-level-0-border: #deded8;
+  --contrib-level-1: #bfe5cf;
+  --contrib-level-2: #72c496;
+  --contrib-level-3: #2d8c5b;
+  --contrib-level-4: #155e37;
 }
 
 * {

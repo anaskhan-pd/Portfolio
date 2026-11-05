@@ -1,42 +1,19 @@
 import { useEffect, useState } from 'react'
 import { GitHubActivity } from './components/github-activity/GitHubActivity.tsx'
+import { Projects } from './components/projects/Projects.tsx'
 
 type Theme = 'dark' | 'light'
 
-const INTEREST_TAGS = [
-  'Artificial Intelligence',
-  'Machine Learning',
-  'Data Science',
-  'Data Analytics',
-  'Creative Design',
-] as const
-
-interface SocialLink {
+interface NavLink {
   label: string
   href: string
-  isExternal?: boolean
+  isActive?: boolean
 }
 
-const SOCIAL_LINKS: SocialLink[] = [
-  {
-    label: 'GitHub',
-    href: 'https://github.com/anaskhan-pd',
-    isExternal: true,
-  },
-  {
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/anaskhan-pd/',
-    isExternal: true,
-  },
-  {
-    label: 'X',
-    href: 'https://x.com/AnasMadeIt',
-    isExternal: true,
-  },
-  {
-    label: 'Email',
-    href: 'mailto:btw.anaskhan@gmail.com',
-  },
+const NAV_LINKS: NavLink[] = [
+  { label: 'Home', href: '#', isActive: true },
+  { label: 'Projects', href: '#projects', isActive: false },
+  { label: 'Writing', href: '#writing', isActive: false },
 ]
 
 function App() {
@@ -55,97 +32,158 @@ function App() {
   }
 
   return (
-    <main className="min-h-screen bg-[var(--background)] text-[var(--text-primary)]">
-      {/* Navigation */}
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-7">
-        <a href="#" className="text-sm font-semibold tracking-tight">
-          Anas Khan<span className="text-[var(--text-muted)]">.</span>
-        </a>
+    <div className="min-h-screen bg-[var(--background)] text-[var(--text-primary)]">
+      <main className="mx-auto max-w-2xl px-5 sm:px-6">
+        {/* Navigation */}
+        <header className="flex items-center justify-between pt-8 pb-8 sm:pt-10 sm:pb-10">
+          <nav className="flex items-center gap-5 sm:gap-6 text-sm" aria-label="Main navigation">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className={`transition-colors ${
+                  link.isActive
+                    ? 'text-[var(--text-primary)] font-medium'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                }`}
+                aria-current={link.isActive ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
 
-        <button
-          type="button"
-          onClick={toggleTheme}
-          className="rounded-full border border-[var(--border)] px-4 py-2 text-xs transition-colors hover:bg-[var(--surface)]"
-          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-        >
-          {theme === 'dark' ? 'Light mode' : 'Dark mode'}
-        </button>
-      </header>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--border)]"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            {theme === 'dark' ? (
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.75}
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+                />
+              </svg>
+            )}
+          </button>
+        </header>
 
-      {/* Introduction */}
-      <section className="mx-auto flex min-h-[75vh] max-w-6xl items-center px-6 py-16">
-        <div className="grid w-full grid-cols-1 items-center gap-12 md:grid-cols-[280px_1fr] md:gap-20">
-          {/* Portrait */}
-          <div className="relative mx-auto w-full max-w-[280px]">
-            <div className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
+        {/* Profile Header */}
+        <section aria-label="Profile" className="pb-8 sm:pb-10">
+          <div className="flex items-center gap-3 sm:gap-3.5">
+            <div className="relative h-16 w-16 sm:h-[70px] sm:w-[70px] shrink-0 overflow-hidden rounded-[14px] border border-[var(--border)] bg-[var(--surface)] p-0.5">
               <img
                 src="/images/profile.png"
                 alt="Illustrated portrait of Anas Khan"
-                className="block aspect-square w-full object-cover"
+                className="h-full w-full object-cover rounded-[12px]"
               />
             </div>
-            <span className="mt-3 block text-center text-xs text-[var(--text-muted)]">
-              A little illustration of me.
-            </span>
-          </div>
-
-          {/* Introduction text */}
-          <div className="max-w-2xl">
-            <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-              Hey, I'm Anas<span className="text-[var(--text-muted)]">.</span>
-            </h1>
-
-            <div className="mt-6 space-y-4 max-w-xl text-base sm:text-lg leading-relaxed text-[var(--text-secondary)]">
-              <p>
-                I'm a Data Science student at IIT Madras, interested in the intersection of AI, machine learning and data.
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)]">
+                Anas Khan
+              </h1>
+              <p className="mt-1 font-mono text-xs sm:text-[13px] text-[var(--text-muted)]">
+                Data Science student at IIT Madras
               </p>
-              <p>
-                I enjoy exploring how models learn, finding patterns in data, and turning ideas into practical projects. I'm always experimenting with new tools, building things and learning along the way.
-              </p>
-              <p>
-                Beyond code and data, I have a thing for visual design and creating things for the internet.
-              </p>
-            </div>
-
-            {/* Interest tags */}
-            <div className="mt-8 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs sm:text-sm">
-              {INTEREST_TAGS.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-[var(--border)] px-3.5 py-1.5 text-[var(--text-secondary)]"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {/* Social links */}
-            <div className="mt-8 flex flex-wrap items-center gap-5 sm:gap-6 text-sm">
-              {SOCIAL_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.isExternal ? '_blank' : undefined}
-                  rel={link.isExternal ? 'noreferrer' : undefined}
-                  className="group inline-flex items-center gap-1 text-[var(--text-secondary)] transition-colors duration-200 hover:text-[var(--text-primary)]"
-                >
-                  <span>{link.label}</span>
-                  <span
-                    aria-hidden="true"
-                    className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  >
-                    ↗
-                  </span>
-                </a>
-              ))}
+              <div className="mt-1.5 flex items-center gap-1.5 font-mono text-xs text-[var(--text-muted)]">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                <span>Available for projects</span>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* GitHub Activity */}
-      <GitHubActivity />
-    </main>
+        {/* Introduction */}
+        <section aria-label="About" className="pb-8 sm:pb-10">
+          <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
+            Hey, I'm Anas<span className="text-[var(--text-muted)]">.</span>
+          </h2>
+
+          <div className="mt-4 space-y-4 text-base leading-relaxed text-[var(--text-secondary)]">
+            <p>
+              I am a Data Science student at <strong>IIT Madras</strong>, focused on{' '}
+              <strong>artificial intelligence</strong>, <strong>machine learning</strong> and{' '}
+              <strong>data analytics</strong>.
+            </p>
+            <p>
+              I enjoy exploring how models learn, finding patterns in data, and turning ideas into{' '}
+              <strong>practical projects</strong>. I'm always experimenting with new tools, building software and learning along the way.
+            </p>
+            <p>
+              Beyond code and data, I have a thing for <strong>visual design</strong> and creating clean things for the internet.
+            </p>
+            <p className="pt-2 text-sm text-[var(--text-muted)]">
+              Find my work on{' '}
+              <a
+                href="https://github.com/anaskhan-pd"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[var(--text-primary)] underline decoration-[var(--border)] underline-offset-4 transition-colors hover:decoration-[var(--text-primary)]"
+              >
+                GitHub ↗
+              </a>
+              , connect on{' '}
+              <a
+                href="https://www.linkedin.com/in/anaskhan-pd/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[var(--text-primary)] underline decoration-[var(--border)] underline-offset-4 transition-colors hover:decoration-[var(--text-primary)]"
+              >
+                LinkedIn ↗
+              </a>
+              , follow what I share on{' '}
+              <a
+                href="https://x.com/AnasMadeIt"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[var(--text-primary)] underline decoration-[var(--border)] underline-offset-4 transition-colors hover:decoration-[var(--text-primary)]"
+              >
+                X ↗
+              </a>
+              , or reach out by{' '}
+              <a
+                href="mailto:btw.anaskhan@gmail.com"
+                className="text-[var(--text-primary)] underline decoration-[var(--border)] underline-offset-4 transition-colors hover:decoration-[var(--text-primary)]"
+              >
+                Email ↗
+              </a>
+              .
+            </p>
+          </div>
+        </section>
+
+        {/* GitHub Activity */}
+        <GitHubActivity />
+
+        {/* Selected Projects */}
+        <Projects />
+      </main>
+    </div>
   )
 }
 
